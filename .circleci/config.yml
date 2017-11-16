@@ -11,7 +11,7 @@ jobs:
         - pip install -r requirements.txt
     steps:
       - checkout
-      - run: docker -d -e POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo --name db postgres:9.4
+      - run: docker -e POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo --name db postgres:9.4
       - run: docker -p 8069:8069 --name odoo --link db:db -t odoo
       - run: docker workstart -a odoo
 
