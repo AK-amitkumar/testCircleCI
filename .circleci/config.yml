@@ -15,8 +15,11 @@ jobs:
     
     
     dependencies:
+      pre:
+        - sudo apt-get update; sudo apt-get install gnu-smalltalk
       override:
         - pip install -r requirements.txt
+    
     steps:
       - checkout
       - run:
@@ -35,6 +38,9 @@ jobs:
 
     #test:
     #  - lettuce tests/
+    #   - coverage run --omit='*lettuce*,*fuzzywuzzy*' tests/features/steps.py 
+    # - coverage report -m
+    # - nosetests --with-doctest --with-coverage -s app
 
 
       #build
