@@ -1,7 +1,12 @@
 version: 2
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/postgres:9.5-alpine
+      environment:
+        POSTGRES_USER: odoo
+        POSTGRES_DB: db
+        POSTGRES_PASSWORD: odoo
     working_directory: ~/repo
     branches:
       only:
@@ -11,12 +16,15 @@ jobs:
         - pip install -r requirements.txt
     steps:
       - checkout
-      - run: docker -e POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo --name db postgres:9.4
-      - run: docker -p 8069:8069 --name odoo --link db:db -t odoo
-      - run: docker workstart -a odoo
+      - run:
+        name: Wait for DB
+        command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-    test:
-      - lettuce tests/
+      #- run: docker -p 8069:8069 --name odoo --link db:db -t odoo
+      #- run: docker workstart -a odoo
+
+    #test:
+    #  - lettuce tests/
 
 
       #build
