@@ -6,18 +6,20 @@ jobs:
       only:
         - master
     machine:
-      python:
-        version: 3.5.2
-      post:
+      pre:
         - pyenv local 2.7.10 3.5.2
      
     dependencies:
       pre:
+        # Test python is installed correctly
+        - v=$(python --version 2>& 1); if [ "$v" == "Python 2.7.10" ]; then echo "$v OK"; else ! echo "$v ERR"; fi
+        - v=$(python3 --version 2>& 1); if [ "$v" == "Python 3.5.2" ]; then echo "$v OK"; else ! echo "$v ERR"; fi
+        - python3 -c 'print("OK")'
+
         - bash -c "yes | add-apt-repository ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y python3.6"
         - pip3 install --upgrade pip
         - pip install -r requirements.txt
       override:
-        - pyenv local 2.7.10 3.5.2
         - apt install -y git build-essential libssl-dev curl apt-transport-https ca-certificates software-properties-common libsasl2-dev python-dev libldap2-dev python3-dev libpng-dev zlib1g-dev libjpeg-dev python3-pip
     
     steps:
