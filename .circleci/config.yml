@@ -6,7 +6,7 @@ jobs:
       only:
         - master
     docker:
-      - image: circleci/python:3.5.2
+      - image: circleci/python:3.6.1
      
     
     steps:
@@ -17,7 +17,7 @@ jobs:
 
       - run:
           command: |
-            v=$(python3 --version 2>& 1); if [ "$v" == "Python 3.5.2" ]; then echo "$v OK"; else ! echo "$v ERR"; fi
+            v=$(python3 --version 2>& 1); if [ "$v" == "Python 3.6.1" ]; then echo "$v OK"; else ! echo "$v ERR"; fi
       - run:
           command: |
             python3 -c 'print("OK")'
