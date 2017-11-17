@@ -5,7 +5,8 @@ jobs:
     branches:
       only:
         - master
-    machine: true
+    docker:
+      - image: ubuntu:16.04
      
     dependencies:
       pre:
