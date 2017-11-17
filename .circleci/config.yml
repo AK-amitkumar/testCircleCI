@@ -37,7 +37,7 @@ jobs:
           sudo pip install -r requirements.txt
 
       - run:
-          ./src_code/odoo-11.0/odoo-bin --addons-path=addons --db-filter=bca_prueba_00 --db_port=5432 --db_host=bcadbdev.chociozqc8if.us-east-1.rds.amazonaws.com --db_password=odoo --db_user=odoo
+          ./src_code/odoo-11.0/odoo-bin --addons-path=./src_code/odoo-11.0/addons --db-filter=bca_prueba_00 --db_port=5432 --db_host=bcadbdev.chociozqc8if.us-east-1.rds.amazonaws.com --db_password=odoo --db_user=odoo
 
 
       #- run: docker -p 8069:8069 --name odoo --link db:db -t odoo
