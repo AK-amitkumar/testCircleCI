@@ -7,31 +7,22 @@ jobs:
         - master
     docker:
       - image: ubuntu:16.04
-      - image: circleci/postgres:9.5
-        environment:
-          POSTGRES_USER: odoo
-          POSTGRES_DB: db
-          POSTGRES_PASSWORD: odoo
     
     
     dependencies:
       pre:
-        - apt-get update; apt-get install -y wget
-      override:
+        - pip3 install --upgrade pip
         - pip install -r requirements.txt
+      override:
+        - apt install -y git build-essential libssl-dev curl apt-transport-https ca-certificates software-properties-common libsasl2-dev python-dev libldap2-dev python3-dev libpng-dev zlib1g-dev libjpeg-dev python3-pip
+
+
     
     steps:
       - checkout
       - run:
-          name: install dockerize
-          environment:
-            DOCKERIZE_VERSION: v0.3.0          
-          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          .src_code/odoo-11.0/odoo-bin --addons-path=addons --db-filter=bca_prueba_00 --db_port=5432 --db_host=bcadbdev.chociozqc8if.us-east-1.rds.amazonaws.com --db_password=odoo --db_user=odoo
 
-      
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       #- run: docker -p 8069:8069 --name odoo --link db:db -t odoo
       #- run: docker workstart -a odoo
