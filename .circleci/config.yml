@@ -13,14 +13,14 @@ jobs:
       - checkout
       - run:
           command: |
+            python --version
+                  
+      - run:
+          command: |
             v=$(python3 --version 2>& 1); if [ "$v" == "Python 3.5.2" ]; then echo "$v OK"; else ! echo "$v ERR"; fi
       - run:
           command: |
             python3 -c 'print("OK")'
-
-      - run:
-          command: |
-            python --version
 
       - run:
           command: |
