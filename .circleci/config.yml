@@ -5,14 +5,16 @@ jobs:
     branches:
       only:
         - master
-    docker:
-      - image: ubuntu:16.04
+    machine:
+      python:
+        version: 3.5.2
      
     dependencies:
       pre:
         - pip3 install --upgrade pip
         - pip install -r requirements.txt
       override:
+        - pyenv local 2.7.10 3.5.2
         - apt install -y git build-essential libssl-dev curl apt-transport-https ca-certificates software-properties-common libsasl2-dev python-dev libldap2-dev python3-dev libpng-dev zlib1g-dev libjpeg-dev python3-pip
     
     steps:
