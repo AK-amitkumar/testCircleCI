@@ -9,6 +9,11 @@ jobs:
       - image: circleci/python:3.6.1
      
     
+    dependencies:
+      override:
+        - apt install -y git build-essential libssl-dev curl apt-transport-https ca-certificates software-properties-common libsasl2-dev python-dev libldap2-dev python3-dev libpng-dev zlib1g-dev libjpeg-dev python3-pip        
+        - pip install -r requirements.txt
+    
     steps:
       - checkout
       - run:
@@ -25,11 +30,7 @@ jobs:
       - run:
           command: |
             pip3 install --upgrade pip
-
-      - run:
-          command: |
-            apt install -y git build-essential libssl-dev curl apt-transport-https ca-certificates software-properties-common libsasl2-dev python-dev libldap2-dev python3-dev libpng-dev zlib1g-dev libjpeg-dev python3-pip        
-
+            
       - run:
           command: |
             pip install -r requirements.txt
