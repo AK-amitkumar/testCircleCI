@@ -5,9 +5,7 @@ jobs:
     branches:
       only:
         - master
-    machine:
-      pre:
-        - pyenv local 2.7.10 3.5.2
+    machine: true
      
     dependencies:
       pre:
