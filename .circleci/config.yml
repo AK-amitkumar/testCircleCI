@@ -8,9 +8,12 @@ jobs:
     machine:
       python:
         version: 3.5.2
+      post:
+        - pyenv local 2.7.10 3.5.2
      
     dependencies:
       pre:
+        - bash -c "yes | add-apt-repository ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y python3.6"
         - pip3 install --upgrade pip
         - pip install -r requirements.txt
       override:
